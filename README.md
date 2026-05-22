@@ -1,6 +1,6 @@
 # 🐾 FutureVet — Clyvo Vet Platform
 
-> Challenge 2026 — 1º Semestre | FIAP | DevOps Tools & Cloud Computing
+> Challenge 2026 — 3º Semestre | FIAP | DevOps Tools & Cloud Computing
 
 ---
 
