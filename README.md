@@ -1,6 +1,6 @@
 # 🐾 FutureVet — Clyvo Vet Platform
 
-> Challenge 2026 — 3º Semestre | FIAP | DevOps Tools & Cloud Computing
+> Challenge 2026 — 1º Semestre | FIAP | DevOps Tools & Cloud Computing
 
 ---
 
@@ -20,7 +20,7 @@
 
 O **FutureVet** é uma plataforma de medicina veterinária digital desenvolvida em parceria com a **Clyvo Vet**, com foco na **continuidade do cuidado e engajamento na jornada de saúde do pet**.
 
-A solução conecta responsáveis, clínicas e o ecossistema veterinário, transformando o cuidado animal de algo reativo para um modelo **contínuo e preventivo**. O sistema permite o cadastro e acompanhamento de pets, tutores, consultas e histórico de vacinação.
+A solução conecta responsáveis, clínicas e o ecossistema veterinário, transformando o cuidado animal de algo reativo para um modelo **contínuo e preventivo**.
 
 ### 🎯 Benefícios para o Negócio
 
@@ -45,7 +45,7 @@ A solução conecta responsáveis, clínicas e o ecossistema veterinário, trans
 │  │  │                                          │   │    │
 │  │  │  ┌─────────────┐    ┌─────────────────┐ │   │    │
 │  │  │  │  Container  │    │    Container    │ │   │    │
-│  │  │  │  Java App   │◄──►│   H2 Database   │ │   │    │
+│  │  │  │  Java App   │◄──►│   Oracle DB     │ │   │    │
 │  │  │  │  :8080      │    │   + Volume      │ │   │    │
 │  │  │  └─────────────┘    └─────────────────┘ │   │    │
 │  │  │                                          │   │    │
@@ -62,7 +62,7 @@ A solução conecta responsáveis, clínicas e o ecossistema veterinário, trans
 | Camada | Tecnologia |
 |--------|------------|
 | Linguagem | Java + Spring Boot |
-| Banco de Dados | H2 |
+| Banco de Dados | Oracle |
 | Containerização | Docker + Docker Compose |
 | Nuvem | Microsoft Azure |
 | VM | Ubuntu 22.04 LTS (Standard_D2s_v3) |
@@ -81,8 +81,8 @@ A solução conecta responsáveis, clínicas e o ecossistema veterinário, trans
 ### Passo 1 — Clonar o repositório
 
 ```bash
-git clone [ INSERIR LINK DO GITHUB ]
-cd futureVet
+git clone https://github.com/joaocaetano1310/Challenge_Devops.git
+cd Challenge_Devops
 ```
 
 ### Passo 2 — Provisionar a VM na Azure
@@ -90,9 +90,9 @@ cd futureVet
 Execute o script de criação da infraestrutura:
 
 ```bash
-chmod +x criacao.sh
-sed -i 's/\r$//' criacao.sh
-./criacao.sh
+chmod +x challenge_devops.sh
+sed -i 's/\r$//' challenge_devops.sh
+./challenge_devops.sh
 ```
 
 O script irá:
@@ -106,14 +106,13 @@ O script irá:
 
 ```bash
 ssh azureuser@<IP_PUBLICO_DA_VM>
-# Senha: Fiap@Cloud2026
 ```
 
-### Passo 4 — Subir a aplicação com Docker Compose
+### Passo 4 — Clonar o projeto na VM e subir os containers
 
 ```bash
-git clone [ INSERIR LINK DO GITHUB ]
-cd futureVet
+git clone https://github.com/joaocaetano1310/Challenge_Devops.git
+cd Challenge_Devops
 docker compose up -d
 ```
 
@@ -126,7 +125,6 @@ curl http://localhost:8080
 
 ### Passo 6 — Acessar a aplicação
 
-Acesse pelo navegador:
 ```
 http://<IP_PUBLICO_DA_VM>:8080
 ```
@@ -135,9 +133,9 @@ http://<IP_PUBLICO_DA_VM>:8080
 
 ## 📄 Script Azure CLI
 
-O arquivo `criacao.sh` na raiz do repositório contém todo o script de provisionamento da infraestrutura Azure.
+O arquivo `challenge_devops.sh` na raiz do repositório contém todo o script de provisionamento da infraestrutura Azure.
 
-> ⚠️ Lembre-se de executar `az login` antes de rodar o script.
+> ⚠️ Execute `az login` antes de rodar o script.
 
 ---
 
@@ -151,7 +149,7 @@ O `Dockerfile` na raiz do projeto realiza o build da aplicação Java e gera a i
 
 O `docker-compose.yml` sobe dois containers:
 - **app** — aplicação Java na porta 8080
-- **db** — banco H2 com volume nomeado `futurevet_data` para persistência dos dados
+- **db** — banco Oracle com volume nomeado para persistência dos dados
 
 ```bash
 # Subir em background
@@ -182,25 +180,23 @@ O vídeo demonstra:
 ## 📁 Estrutura do Repositório
 
 ```
-futureVet/
+Challenge_Devops/
 ├── src/                    # Código fonte Java/Spring Boot
 ├── Dockerfile              # Build da aplicação
 ├── docker-compose.yml      # Orquestração dos containers
-├── criacao.sh              # Script Azure CLI
+├── challenge_devops.sh     # Script Azure CLI
 └── README.md               # Este arquivo
 ```
 
 ---
 
-## ⚠️ Importante — Remoção da VM
+## ⚠️ Remoção da VM
 
-Ao final da demonstração, a VM foi removida conforme exigido pelo professor:
+Ao final da demonstração, execute:
 
 ```bash
 az group delete --name rg-FutureVet --yes --no-wait
 ```
-
-> Print da remoção disponível no PDF de entrega.
 
 ---
 
